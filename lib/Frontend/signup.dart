@@ -1,9 +1,8 @@
 import 'login.dart';
 import 'package:flutter/material.dart';
 
-//import "package:syncfusion_flutter_datepicker/datepicker.dart";
-class signupPage extends StatelessWidget {
-  const signupPage({Key? key}) : super(key: key);
+class SignupPage extends StatelessWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class signupPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Column(
@@ -34,11 +33,11 @@ class signupPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "SignUp",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -52,51 +51,38 @@ class signupPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  InputFile(label: "Email", hintText: ''),
-                  SizedBox(
+                  inputFile(label: "Name", hintText: ''),
+                  const SizedBox(
                     height: 15,
                   ),
-                  InputFile(label: "Password", obscureText: true, hintText: ''),
-                  SizedBox(
+                  inputFile(label: "Email", hintText: ''),
+                  const SizedBox(
                     height: 15,
                   ),
-                  InputFile(
-                      label: "Confirm Password",
-                      obscureText: true,
-                      hintText: ''),
-                  SizedBox(
+                  inputFile(label: "Password", obscureText: true, hintText: ''),
+                  const SizedBox(
                     height: 15,
                   ),
-                  InputFile(
-                    label: "Enter name of your country",
+                  inputFile(
+                    label: "Country",
                     hintText: '',
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
+                  ), //input field to enter the date of birth
+                  inputFile(
+                    label: "Date of Birth",
+                    hintText: 'DD/MM/YYYY',
                   ),
-                  //input field to enter the date of birth
-                  InputFile(
-                    label: "Enter your date of birth",
-                    obscureText: false,
-                    hintText: "DD/MM/YYYY",
-                    //date picker to select the date of birth
-                    child: DatePicker(
-                      dateFormat: DateFormat("dd-MM-yyyy"),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2050),
-                      initialDate: DateTime.now(),
-                      onDateChanged: (date) {
-                        // ignore: avoid_print
-                        print(date);
-                      },
-                    ),
+                  const SizedBox(
+                    height: 15,
                   ),
                 ],
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Container(
-                  padding: EdgeInsets.only(top: 30, left: 10),
+                  padding: const EdgeInsets.only(top: 30, left: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -107,15 +93,15 @@ class signupPage extends StatelessWidget {
                         height: 60,
                         onPressed:
                             () {}, //add functionality for the signup button here
-                        color: Color(0xff0095FF),
+                        color: const Color(0xff0095FF),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: Colors.black,
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Signup",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -124,7 +110,7 @@ class signupPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         //sized box is used to add space between the input fields
                         height: 20,
                       ),
@@ -138,11 +124,11 @@ class signupPage extends StatelessWidget {
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: Colors.black,
                           ),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Signup With Google",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -163,12 +149,12 @@ class signupPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => loginPage(),
+                          builder: (context) => const loginPage(),
                         ),
                       );
                     },
                     child: Text(
-                      "Already have an account? Signin",
+                      "Already have an account? Sign In",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey[700],
@@ -184,14 +170,14 @@ class signupPage extends StatelessWidget {
     );
   }
 
-  DatePicker(
+  datePicker(
       {dateFormat,
       required DateTime firstDate,
       required DateTime lastDate,
       required DateTime initialDate,
       required Null Function(date) onDateChanged}) {}
 
-  DateFormat(String s) {}
+  dateFormat(String s) {}
 }
 
 mixin date {}

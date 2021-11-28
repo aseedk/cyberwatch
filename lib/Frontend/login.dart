@@ -26,7 +26,7 @@ class loginPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -38,12 +38,12 @@ class loginPage extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "Login",
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
@@ -56,26 +56,26 @@ class loginPage extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
-                        InputFile(
+                        inputFile(
                           label: "Email",
                           hintText: '',
                         ),
-                        SizedBox(
+                        const SizedBox(
                           //sized box is used to add space between the input fields
                           height: 20,
                         ),
-                        InputFile(
+                        inputFile(
                             label: "Password", obscureText: true, hintText: ''),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
-                      padding: EdgeInsets.only(top: 30, left: 10),
+                      padding: const EdgeInsets.only(top: 30, left: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                       ),
@@ -86,15 +86,15 @@ class loginPage extends StatelessWidget {
                             height: 60,
                             onPressed:
                                 () {}, //add functionality for the login button here
-                            color: Color(0xff0095FF),
+                            color: const Color(0xff0095FF),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               "Login",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -103,7 +103,7 @@ class loginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             //sized box is used to add space between the input fields
                             height: 20,
                           ),
@@ -117,12 +117,12 @@ class loginPage extends StatelessWidget {
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            child: Text(
-                              "Signin With Google",
+                            child: const Text(
+                              "Sign In With Google",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
@@ -142,7 +142,7 @@ class loginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => signupPage(),
+                              builder: (context) => const SignupPage(),
                             ),
                           );
                         },
@@ -169,7 +169,7 @@ class loginPage extends StatelessWidget {
 }
 
 //creating widget for text input field
-Widget InputFile(
+Widget inputFile(
     {label, obscureText = false, child, required String hintText}) {
   //obscureText false means to show the text as it is
   return Column(
@@ -177,18 +177,18 @@ Widget InputFile(
       children: <Widget>[
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
             color: Colors.black87,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         TextField(
           obscureText: obscureText,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(

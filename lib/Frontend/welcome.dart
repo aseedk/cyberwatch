@@ -81,7 +81,7 @@ class Welcome extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const signupPage()));
+                              builder: (context) => const SignupPage()));
                     },
                     color: const Color(0xff0095FF),
                     shape: RoundedRectangleBorder(
