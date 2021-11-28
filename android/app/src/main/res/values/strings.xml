@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">cyberwatch</string>
-    <string name="facebook_app_id">410179710487496</string>
-    <string name="fb_login_protocol_scheme">fb410179710487496</string>
+    <string name="facebook_app_id">480299120303092</string>
+    <string name="fb_login_protocol_scheme">fb480299120303092</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">4aNp2JGbx8eDXMvJzhjyWU8lf</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">QgJbqWNRMjGamwDLbvaim9z3HcZe4OVRjFDnHdwMMAXDhHci0l</string>
+
 </resources>

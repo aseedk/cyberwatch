@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "368074010531-roteggpiaeu90ismg079n89pv8hjhit7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cyberwatch",
+            "certificate_hash": "e1300b77ea4537d1da6d036e31c977185e546df7"
+          }
+        },
+        {
           "client_id": "368074010531-gmgeucsvkppd359bseojqltv2gtrp33n.apps.googleusercontent.com",
           "client_type": 3
         }

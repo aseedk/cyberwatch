@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'flutterfire.dart';
-import 'facebook.dart';
+import 'Backend/flutterfire.dart';
+import 'Backend/facebook.dart';
+import 'Backend/twitter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -125,8 +126,15 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextButton.styleFrom(
                 primary: Colors.blue,
               ),
-              onPressed: loginFacebook,
-              child: const Text('Login Facebook'),
+              onPressed: signInWithGoogle,
+              child: const Text('Login Google'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.blue,
+              ),
+              onPressed: loginTwitter,
+              child: const Text('Login Twitter'),
             ),
             TextButton(
               style: TextButton.styleFrom(
@@ -139,8 +147,27 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextButton.styleFrom(
                 primary: Colors.blue,
               ),
-              onPressed: getUserDataFacebook,
+              onPressed: (){
+                getUserDataFacebook();
+                getUserPhotosFacebook();
+                getUserVideosFacebook();
+                getUserPostsFacebook();
+              },
               child: const Text('Get User Facebook'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.blue,
+              ),
+              onPressed: logoutUser,
+              child: const Text('logout'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.blue,
+              ),
+              onPressed: getUserTweets,
+              child: const Text('Get User Twitter'),
             ),
           ],
         ),
