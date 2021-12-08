@@ -1,88 +1,100 @@
 import 'login.dart';
 import 'package:flutter/material.dart';
-
-class SignupPage extends StatelessWidget {
-  const SignupPage({Key? key}) : super(key: key);
+import '../Backend/user.dart';
+import '../Backend/flutterfire.dart';
+import 'connectAccount.dart';
+import '../Backend/mongo_implementation.dart';
+import '../Backend/input_file.dart';
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final nameTextFieldController = TextEditingController();
+    final emailTextFieldController = TextEditingController();
+    final passwordTextFieldController = TextEditingController();
+    final countryTextFieldController = TextEditingController();
+    final dateOfBirthTextFieldController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            size: 20,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height,
-          width: double.infinity,
+      body: Container(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 40),
+          // height: MediaQuery.of(context).size.height,
+          // width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  const Text(
+                  SizedBox(
+                    height: 5,
+                  ),
+                  ClipRRect(
+                    //give black color to border of the image
+                    child: Image.asset(
+                      'images/cyberwatch1.png',
+                      height: 200,
+                      width: 300,
+                    ),
+                  ),
+                  Text(
                     "SignUp",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
-                  ),
-                  Text(
-                    "Create an account, its FREE",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey[700],
-                    ),
                   ),
                 ],
               ),
               Column(
                 children: <Widget>[
-                  inputFile(label: "Name", hintText: ''),
-                  const SizedBox(
+                  InputFile(
+                    label: "Full Name",
+                    labelText: '',
+                    controller: nameTextFieldController
+                  ),
+                  SizedBox(
                     height: 15,
                   ),
-                  inputFile(label: "Email", hintText: ''),
-                  const SizedBox(
+                  InputFile(
+                      label: "Email",
+                      labelText: '',
+                      controller: emailTextFieldController),
+                  SizedBox(
                     height: 15,
                   ),
-                  inputFile(label: "Password", obscureText: true, hintText: ''),
-                  const SizedBox(
+                  InputFile(
+                      label: "Password",
+                      obscureText: true,
+                      labelText: '',
+                      controller: passwordTextFieldController),
+                  SizedBox(
                     height: 15,
                   ),
-                  inputFile(
+                  InputFile(
                     label: "Country",
-                    hintText: '',
+                    labelText: '',
+                    controller: countryTextFieldController
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 15,
-                  ), //input field to enter the date of birth
-                  inputFile(
-                    label: "Date of Birth",
-                    hintText: 'DD/MM/YYYY',
                   ),
-                  const SizedBox(
-                    height: 15,
+                  //input field to enter the date of birth
+                  InputFile(
+                    label: "Date of birth",
+                    obscureText: false,
+                    labelText: '',
+                    controller: dateOfBirthTextFieldController
+                    //date picker to select the date of birth
                   ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Container(
-                  padding: const EdgeInsets.only(top: 30, left: 10),
+                  padding: EdgeInsets.only(top: 30, left: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -91,13 +103,40 @@ class SignupPage extends StatelessWidget {
                       MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
-                        onPressed:
-                            () {}, //add functionality for the signup button here
-                        color: const Color(0xff0095FF),
+                        onPressed: () async {
+                          User user= User();
+                          user.fullName = nameTextFieldController.text;
+                          user.email = emailTextFieldController.text;
+                          user.password = passwordTextFieldController.text;
+                          user.country = countryTextFieldController.text;
+                          user.dateOfBirth = dateOfBirthTextFieldController.text;
+                          var uid = await registerUser(user.email, user.password);
+                          switch(uid) {
+                            case 'The password provided is too weak.': {  print('The password provided is too weak.'); }
+                            break;
+
+                            case 'The account already exists for that email.': {  print('The account already exists for that email.'); }
+                            break;
+
+                            default: {
+                              user.id = uid;
+                              registerUserAccount(user);
+                              print(user.toString()); }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const connectAccounts(),
+                              ),
+                            );
+                            break;
+                          }
+
+                        }, //add functionality for the signup button here
+                        color: Color(0xff0095FF),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
-                          side: const BorderSide(
+                          side: BorderSide(
                             color: Colors.black,
                           ),
                         ),
@@ -110,7 +149,7 @@ class SignupPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         //sized box is used to add space between the input fields
                         height: 20,
                       ),
@@ -124,22 +163,39 @@ class SignupPage extends StatelessWidget {
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
-                          side: const BorderSide(
+                          side: BorderSide(
                             color: Colors.black,
                           ),
                         ),
-                        child: const Text(
-                          "Signup With Google",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
+                        //add google icon inside the button
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              'images/google.png',
+                              height: 25,
+                              width: 25,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Signup with Google",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 5,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -149,16 +205,29 @@ class SignupPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const loginPage(),
+                          builder: (context) => loginPage(),
                         ),
                       );
                     },
-                    child: Text(
-                      "Already have an account? Sign In",
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey[700],
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          "Already have an account?",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey[700],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Signin",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -169,15 +238,4 @@ class SignupPage extends StatelessWidget {
       ),
     );
   }
-
-  datePicker(
-      {dateFormat,
-      required DateTime firstDate,
-      required DateTime lastDate,
-      required DateTime initialDate,
-      required Null Function(date) onDateChanged}) {}
-
-  dateFormat(String s) {}
 }
-
-mixin date {}
