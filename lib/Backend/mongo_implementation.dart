@@ -5,7 +5,7 @@ Future<Db> getConnection() async{
   await db.open();
   return db;
 }
-void registerUserAccount(User user) async{
+Future<User> registerUserAccount(User user) async{
   var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
   await db.open();
   var usersAccountCollection = db.collection('user_accounts');
@@ -16,5 +16,19 @@ void registerUserAccount(User user) async{
     'country': user.country,
     "dob": user.dateOfBirth
   });
-  print('User Registered Succesfully');
+  return user;
+}
+
+Future<User> loginUserAccount(String id) async{
+  var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
+  await db.open();
+  var usersAccountCollection = db.collection('user_accounts');
+  var userDocument = await usersAccountCollection.findOne(where.eq("_id", id));
+  User user = User();
+  user.id = userDocument!['_id'];
+  user.fullName = userDocument['name'];
+  user.email = userDocument['email'];
+  user.country = userDocument['country'];
+  user.dateOfBirth = userDocument['dob'];
+  return user;
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'connect_social_media_accounts.dart';
 import 'signup.dart';
 import '../Backend/flutter_fire.dart';
 import '../Backend/input_file.dart';
+import '../Backend/mongo_implementation.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -77,12 +79,36 @@ class LoginView extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () async {
-                              print(emailTextFieldController.text);
-                              var userId = await loginUser(emailTextFieldController.text.toString(), passwordTextFieldController.text.toString());
-                              print("BLEH");
-                              print(userId.toString());
+                              var uid = await loginUser("aseedk@hotmail.com", "khokhar99");
+                              switch(uid) {
+                                case 'No user found for that email.':
+                                  {
+                                    print('No user found for that email.');
+                                  }
+                                  break;
 
-                            }, //add functionality for the login button here
+                                case 'Wrong password provided for that user.':
+                                  {
+                                    print(
+                                        'Wrong password provided for that user.');
+                                  }
+                                  break;
+
+                                default:
+                                  {
+                                    var user = await loginUserAccount(uid!);
+                                    print(user.toString());
+                                    /*Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (
+                                            context) => const ConnectSocialMediaView(),
+                                      ),
+                                    );*/
+                                    break;
+                                  }
+                              }
+                            },
                             color: const Color(0xff0095FF),
                             elevation: 0,
                             shape: RoundedRectangleBorder(

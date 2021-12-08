@@ -2,13 +2,13 @@ class User {
   late String _id;
   late String _fullName;
   late String _email;
-  late String _password;
+  late String _password = "";
   late String _country;
   late String _dateOfBirth;
-  late bool _verified;
-  late String _facebookAccessToken;
-  late String _twitterAccessToken;
-  late String _twitterAccessSecret;
+  late bool _verified = true;
+  late String _facebookAccessToken = "";
+  late String _twitterAccessToken = "";
+  late String _twitterAccessSecret = "";
   User();
   String get id => _id;
   set id(var value) {
@@ -65,10 +65,10 @@ class User {
         'Password: $password\n'
         'Country: $country\n'
         'DateOfBirth: $dateOfBirth \n'
-        /*'Verified: $verified \n'
+        'Verified: $verified \n'
         'FacebookAccessToken: $facebookAccessToken \n'
         'TwitterAccessToken: $twitterAccessToken \n'
-        'TwitterAccessSecret: $twitterAccessSecret'*/;
+        'TwitterAccessSecret: $twitterAccessSecret';
   }
   Map<String, dynamic> toJson() =>
       {
