@@ -1,7 +1,12 @@
+import 'package:cyberwatch/Backend/facebook.dart';
+import 'package:cyberwatch/Backend/mongo_implementation.dart';
+import 'package:cyberwatch/Backend/twitter.dart';
+import 'package:cyberwatch/Backend/user.dart';
 import 'package:flutter/material.dart';
 
 class ConnectSocialMediaView extends StatelessWidget {
-  const ConnectSocialMediaView({Key? key}) : super(key: key);
+  const ConnectSocialMediaView({Key? key, required this.user}) : super(key: key);
+  final CyberWatchUser user;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,16 @@ class ConnectSocialMediaView extends StatelessWidget {
                 MaterialButton(
                   minWidth: double.infinity,
                   height: 60,
-                  onPressed: () {},
+                  onPressed: () async {
+                    var accessToken = await loginFacebook();
+                    user.facebookAccessToken = accessToken;
+                    print(user.toString());
+                    await linkFacebookAccount(user);
+                    await getUserPostsFacebook(user.facebookAccessToken);
+                    await getUserVideosFacebook(user.facebookAccessToken);
+                    await getUserPhotosFacebook(user.facebookAccessToken);
+
+                  },
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(
                       color: Colors.black,
@@ -36,7 +50,17 @@ class ConnectSocialMediaView extends StatelessWidget {
                 MaterialButton(
                   minWidth: double.infinity,
                   height: 60,
-                  onPressed: () {},
+                  onPressed: () async {
+                    List<String?> twitterUser = await loginTwitter();
+                    user.twitterAccessToken = twitterUser[0];
+                    user.twitterAccessSecret = twitterUser[1];
+                    await linkTwitterAccessTokenWithAccount(user);
+                    await linkTwitterAccessSecretWithAccount(user);
+                    await getUserMentions();
+                    await getUserTweets();
+                    /*await loginTwitter();
+                    await getUserTweets();*/
+                  },
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(
                       color: Colors.black,

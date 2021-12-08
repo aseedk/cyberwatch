@@ -4,7 +4,7 @@ import 'package:dart_twitter_api/twitter_api.dart';
 String authToken="";
 String authTokenSecret="";
 
-Future loginTwitter() async {
+Future<List<String?>> loginTwitter() async {
   final twitterLogin = TwitterLogin(
     apiKey: "4aNp2JGbx8eDXMvJzhjyWU8lf",
     apiSecretKey: "QgJbqWNRMjGamwDLbvaim9z3HcZe4OVRjFDnHdwMMAXDhHci0l",
@@ -14,20 +14,27 @@ Future loginTwitter() async {
   switch (authResult.status) {
     case TwitterLoginStatus.loggedIn:
       print('====== Login success ======');
-      print(authResult.authToken);
       authToken = authResult.authToken!;
       authTokenSecret = authResult.authTokenSecret!;
+      print(authResult.authToken);
       print(authResult.authTokenSecret);
-      break;
+      final List<String?> twitterUser = [];
+      twitterUser.add(authResult.authToken);
+      twitterUser.add(authResult.authTokenSecret);
+      //break;
+      return twitterUser;
     case TwitterLoginStatus.cancelledByUser:
       print('====== Login cancel ======');
-      break;
+      //break;
+      return ['Cancel'];
     case TwitterLoginStatus.error:
     case null:
       print('====== Login error ======');
-      break;
+      //break;
+      return ['Error'];
   }
 }
+
 final twitterApi = TwitterApi(
   client: TwitterClient(
     consumerKey: '4aNp2JGbx8eDXMvJzhjyWU8lf',

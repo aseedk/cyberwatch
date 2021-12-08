@@ -5,7 +5,7 @@ Future<Db> getConnection() async{
   await db.open();
   return db;
 }
-Future<User> registerUserAccount(User user) async{
+Future<void> registerUserAccount(CyberWatchUser user) async{
   var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
   await db.open();
   var usersAccountCollection = db.collection('user_accounts');
@@ -14,21 +14,43 @@ Future<User> registerUserAccount(User user) async{
     'name': user.fullName,
     'email': user.email,
     'country': user.country,
-    "dob": user.dateOfBirth
+    'dob': user.dateOfBirth,
+    'facebookAccessToken': "",
+    'twitterAccessToken': "",
+    'twitterAccessSecret': ""
   });
-  return user;
 }
 
-Future<User> loginUserAccount(String id) async{
+Future<CyberWatchUser> loginUserAccount(String id) async{
   var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
   await db.open();
   var usersAccountCollection = db.collection('user_accounts');
   var userDocument = await usersAccountCollection.findOne(where.eq("_id", id));
-  User user = User();
+  CyberWatchUser user = CyberWatchUser();
   user.id = userDocument!['_id'];
   user.fullName = userDocument['name'];
   user.email = userDocument['email'];
   user.country = userDocument['country'];
   user.dateOfBirth = userDocument['dob'];
   return user;
+}
+
+Future<void> linkFacebookAccount(CyberWatchUser user) async{
+  var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
+  await db.open();
+  var usersAccountCollection = db.collection('user_accounts');
+  usersAccountCollection.updateOne(where.eq('_id', user.id), modify.set('facebookAccessToken', user.facebookAccessToken));
+}
+Future<void> linkTwitterAccessTokenWithAccount(CyberWatchUser user) async{
+  var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
+  await db.open();
+  var usersAccountCollection = db.collection('user_accounts');
+  usersAccountCollection.updateOne(where.eq('_id', user.id), modify.set('twitterAccessToken', user.twitterAccessToken));
+}
+
+Future<void> linkTwitterAccessSecretWithAccount(CyberWatchUser user) async{
+  var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
+  await db.open();
+  var usersAccountCollection = db.collection('user_accounts');
+  usersAccountCollection.updateOne(where.eq('_id', user.id), modify.set('twitterAccessSecret', user.twitterAccessSecret));
 }

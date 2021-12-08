@@ -103,7 +103,7 @@ class SignUpView extends StatelessWidget {
                       minWidth: double.infinity,
                       height: 60,
                       onPressed: () async {
-                        User user= User();
+                        CyberWatchUser user= CyberWatchUser();
                         user.fullName = nameTextFieldController.text;
                         user.email = emailTextFieldController.text;
                         user.password = passwordTextFieldController.text;
@@ -119,14 +119,15 @@ class SignUpView extends StatelessWidget {
 
                           default: {
                             user.id = uid;
-                            registerUserAccount(user);
-                            print(user.toString()); }
+                            await registerUserAccount(user);
+                            print(user.toString());
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ConnectSocialMediaView(),
-                            ),
-                          );
+                                builder: (context) => ConnectSocialMediaView(user: user),
+                              ),
+                            );
+                          }
                           break;
                         }
 

@@ -1,4 +1,4 @@
-class User {
+class CyberWatchUser {
   late String _id;
   late String _fullName;
   late String _email;
@@ -9,7 +9,7 @@ class User {
   late String _facebookAccessToken = "";
   late String _twitterAccessToken = "";
   late String _twitterAccessSecret = "";
-  User();
+  CyberWatchUser();
   String get id => _id;
   set id(var value) {
     _id = value;
