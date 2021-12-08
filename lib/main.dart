@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'temp.dart';
 import 'Frontend/splash.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +49,7 @@ class _AppState extends State<App> {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const MyApp(),
+          home: const Splash(),
         );
       },
     );

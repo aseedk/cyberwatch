@@ -6,11 +6,11 @@ import 'Backend/twitter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -112,14 +112,14 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextButton.styleFrom(
                 primary: Colors.blue,
               ),
-              onPressed: registerUser,
+              onPressed: (){},
               child: const Text('Register'),
             ),
             TextButton(
               style: TextButton.styleFrom(
                 primary: Colors.blue,
               ),
-              onPressed: loginUser,
+              onPressed: (){},
               child: const Text('Login'),
             ),
             TextButton(
@@ -135,6 +135,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onPressed: loginTwitter,
               child: const Text('Login Twitter'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.blue,
+              ),
+              onPressed: loginFacebook,
+              child: const Text('Login Facebook'),
             ),
             TextButton(
               style: TextButton.styleFrom(

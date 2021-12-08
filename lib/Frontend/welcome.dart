@@ -1,3 +1,4 @@
+import 'connectAccount.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
@@ -13,14 +14,14 @@ class Welcome extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Welcome to CyberWatch',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -28,7 +29,7 @@ class Welcome extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -43,7 +44,7 @@ class Welcome extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image:
                       DecorationImage(image: AssetImage('images/welcome.png')),
                 ),
@@ -55,15 +56,15 @@ class Welcome extends StatelessWidget {
                     height: 60,
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const loginPage()));
+                          MaterialPageRoute(builder: (context) => loginPage()));
                     },
                     shape: RoundedRectangleBorder(
-                      side: const BorderSide(
+                      side: BorderSide(
                         color: Colors.black,
                       ),
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Login",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -71,7 +72,7 @@ class Welcome extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                   MaterialButton(
@@ -81,16 +82,16 @@ class Welcome extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignupPage()));
+                              builder: (context) => SignUpPage()));
                     },
-                    color: const Color(0xff0095FF),
+                    color: Color(0xff0095FF),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
-                      side: const BorderSide(
+                      side: BorderSide(
                         color: Colors.black,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Signup",
                       style: TextStyle(
                         color: Colors.white,
