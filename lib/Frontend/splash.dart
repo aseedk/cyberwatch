@@ -1,39 +1,36 @@
-
 import 'welcome.dart';
 import 'package:flutter/material.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
+class SplashView extends StatefulWidget {
+  const SplashView({Key? key}) : super(key: key);
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    _navigatetohome();
+    navigateToHome();
   }
 
-  _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 3000), () {});
+  navigateToHome() async {
+    await Future.delayed(const Duration(milliseconds: 3000), () {});
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => const Welcome(
+            builder: (context) => const WelcomeView(
                   title: 'App Splash Screen',
                 )));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: Container(
-          child: const Image(
-            image: AssetImage('images/cyberwatch.png'),
-          ),
+        child: Image(
+          image: AssetImage('images/cyberwatch.png'),
         ),
       ),
     );

@@ -15,19 +15,19 @@ Widget InputFile({
       children: <Widget>[
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
             color: Colors.black87,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         TextField(
           obscureText: obscureText,
           controller: controller,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(

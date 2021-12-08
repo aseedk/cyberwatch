@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Frontend/splash.dart';
+import 'Frontend/error.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const App());
@@ -28,7 +29,7 @@ class _AppState extends State<App> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const Splash(),
+            home: const ErrorView(),
           );
         }
 
@@ -40,7 +41,7 @@ class _AppState extends State<App> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: const Splash(),
+            home: const SplashView(),
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete
@@ -49,7 +50,7 @@ class _AppState extends State<App> {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const Splash(),
+          home: const SplashView(),
         );
       },
     );

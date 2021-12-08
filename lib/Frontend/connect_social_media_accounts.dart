@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class connectAccounts extends StatelessWidget {
-  const connectAccounts({Key? key}) : super(key: key);
+class ConnectSocialMediaView extends StatelessWidget {
+  const ConnectSocialMediaView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,12 @@ class connectAccounts extends StatelessWidget {
                   height: 60,
                   onPressed: () {},
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.black,
                     ),
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Connect with Facebook",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -30,7 +30,7 @@ class connectAccounts extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 MaterialButton(
@@ -38,12 +38,12 @@ class connectAccounts extends StatelessWidget {
                   height: 60,
                   onPressed: () {},
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.black,
                     ),
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Connect with Twitter",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,

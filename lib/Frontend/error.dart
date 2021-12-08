@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Error extends StatelessWidget {
-  const Error({Key? key}) : super(key: key);
+class ErrorView extends StatelessWidget {
+  const ErrorView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,11 +11,11 @@ class Error extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Sorry for the inconvenience',
               style: TextStyle(fontSize: 30),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Image.asset(

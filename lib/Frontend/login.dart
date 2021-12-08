@@ -1,22 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'signup.dart';
-import '../Backend/data_check.dart';
-import '../Backend/flutterfire.dart';
+import '../Backend/flutter_fire.dart';
 import '../Backend/input_file.dart';
 
-final emailTextFieldController = TextEditingController();
-final passwordTextFieldController = TextEditingController();
-// ignore: camel_case_types
-class loginPage extends StatelessWidget {
-  const loginPage({Key? key}) : super(key: key);
+class LoginView extends StatelessWidget {
+  const LoginView({Key? key}) : super(key: key);
   get child => null;
   @override
   Widget build(BuildContext context) {
+    final emailTextFieldController = TextEditingController();
+    final passwordTextFieldController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -29,25 +27,24 @@ class loginPage extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       ClipRRect(
-                        //give black color to border of the image
                         child: Image.asset(
                           'images/cyberwatch1.png',
                           height: 200,
                           width: 300,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Login",
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
                         InputFile(
@@ -55,8 +52,7 @@ class loginPage extends StatelessWidget {
                           labelText: '',
                           controller: emailTextFieldController
                         ),
-                        SizedBox(
-                          //sized box is used to add space between the input fields
+                        const SizedBox(
                           height: 20,
                         ),
                         InputFile(
@@ -69,9 +65,9 @@ class loginPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
-                      padding: EdgeInsets.only(top: 30, left: 10),
+                      padding: const EdgeInsets.only(top: 30, left: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                       ),
@@ -87,15 +83,15 @@ class loginPage extends StatelessWidget {
                               print(userId.toString());
 
                             }, //add functionality for the login button here
-                            color: Color(0xff0095FF),
+                            color: const Color(0xff0095FF),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               "Login",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -104,22 +100,18 @@ class loginPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            //sized box is used to add space between the input fields
+                          const SizedBox(
                             height: 20,
                           ),
-                          //add login with google button here
                           MaterialButton(
                             minWidth: double.infinity,
                             height: 60,
-                            onPressed: () {
-
-                            }, //add functionality for the login button here
+                            onPressed: () {},
                             color: Colors.white,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Colors.black,
                               ),
                             ),
@@ -132,10 +124,10 @@ class loginPage extends StatelessWidget {
                                   height: 25,
                                   width: 25,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
-                                Text(
+                                const Text(
                                   "Login with Google",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -150,7 +142,7 @@ class loginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
@@ -161,7 +153,7 @@ class loginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignUpPage(),
+                              builder: (context) => const SignUpView(),
                             ),
                           );
                         },
@@ -175,7 +167,7 @@ class loginPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
+                            const Text(
                               "Signup",
                               style: TextStyle(
                                 fontSize: 15,
@@ -196,8 +188,6 @@ class loginPage extends StatelessWidget {
       ),
     );
   }
-
   onTap(Null Function() param0, Text text) {}
 }
 
-//creating widget for text input field
