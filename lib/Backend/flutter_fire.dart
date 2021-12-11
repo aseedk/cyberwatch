@@ -1,3 +1,4 @@
+import 'package:cyberwatch/Backend/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -22,8 +23,6 @@ Future<String?> registerUser(email, password) async {
   }
 }
 Future<String?> loginUser(email, password) async{
-  //"barry.allen@example.com"
-  //SuperSecretPassword!
   try {
     print(email);
     print(password);
@@ -43,7 +42,7 @@ Future<String?> loginUser(email, password) async{
     return(e.toString());
   }
 }
-Future<UserCredential> signInWithGoogle() async {
+Future<CyberWatchUser> signInWithGoogle() async {
   // Trigger the authentication flow
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -55,9 +54,13 @@ Future<UserCredential> signInWithGoogle() async {
     accessToken: googleAuth?.accessToken,
     idToken: googleAuth?.idToken,
   );
-
+  UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+  CyberWatchUser user = CyberWatchUser();
+  user.id = userCredential.user!.uid;
+  user.fullName = userCredential.user!.displayName;
+  user.email = userCredential.user!.email;
   // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
+  return user;
 }
 
 void getCurrentUser(){

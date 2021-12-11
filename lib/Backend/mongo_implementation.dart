@@ -5,7 +5,7 @@ Future<Db> getConnection() async{
   await db.open();
   return db;
 }
-Future<void> registerUserAccount(CyberWatchUser user) async{
+Future<CyberWatchUser> registerUserAccount(CyberWatchUser user) async{
   var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
   await db.open();
   var usersAccountCollection = db.collection('user_accounts');
@@ -19,6 +19,7 @@ Future<void> registerUserAccount(CyberWatchUser user) async{
     'twitterAccessToken': "",
     'twitterAccessSecret': ""
   });
+  return user;
 }
 
 Future<CyberWatchUser> loginUserAccount(String id) async{
@@ -32,9 +33,21 @@ Future<CyberWatchUser> loginUserAccount(String id) async{
   user.email = userDocument['email'];
   user.country = userDocument['country'];
   user.dateOfBirth = userDocument['dob'];
+  user.facebookAccessToken = userDocument['facebookAccessToken'];
+  user.twitterAccessToken = userDocument['twitterAccessToken'];
+  user.twitterAccessSecret = userDocument['twitterAccessSecret'];
   return user;
 }
-
+Future<void> registerUserAccountGoogle(CyberWatchUser user) async{
+  var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
+  await db.open();
+  var usersAccountCollection = db.collection('user_accounts');
+  var userDocument = await usersAccountCollection.findOne(where.eq("_id", user.id));
+  if (userDocument == null){
+    print('Registering User');
+    registerUserAccount(user);
+  }
+}
 Future<void> linkFacebookAccount(CyberWatchUser user) async{
   var db = await Db.create("mongodb+srv://user:user@cyberwatch.5ewsz.mongodb.net/DevelopmentDatabase?retryWrites=true");
   await db.open();

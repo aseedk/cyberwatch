@@ -3,8 +3,8 @@ class CyberWatchUser {
   late String _fullName;
   late String _email;
   late String _password = "";
-  late String _country;
-  late String _dateOfBirth;
+  late String _country = "";
+  late String _dateOfBirth = "";
   late bool _verified = true;
   late String _facebookAccessToken = "";
   late String _twitterAccessToken = "";

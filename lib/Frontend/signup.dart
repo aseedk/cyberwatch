@@ -152,42 +152,6 @@ class SignUpView extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    MaterialButton(
-                      minWidth: double.infinity,
-                      height: 60,
-                      onPressed:
-                          () {},
-                      color: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: const BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                      //add google icon inside the button
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'images/google.png',
-                            height: 25,
-                            width: 25,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Signup with Google",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),

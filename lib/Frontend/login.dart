@@ -1,3 +1,4 @@
+import 'package:cyberwatch/Backend/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'connect_social_media_accounts.dart';
@@ -5,14 +6,13 @@ import 'signup.dart';
 import '../Backend/flutter_fire.dart';
 import '../Backend/input_file.dart';
 import '../Backend/mongo_implementation.dart';
-
+final emailTextFieldController = TextEditingController();
+final passwordTextFieldController = TextEditingController();
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
   get child => null;
   @override
   Widget build(BuildContext context) {
-    final emailTextFieldController = TextEditingController();
-    final passwordTextFieldController = TextEditingController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -79,7 +79,7 @@ class LoginView extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () async {
-                              var uid = await loginUser("aseedk@hotmail.com", "khokhar99");
+                              var uid = await loginUser(emailTextFieldController.text, passwordTextFieldController.text);
                               switch(uid) {
                                 case 'No user found for that email.':
                                   {
@@ -96,15 +96,15 @@ class LoginView extends StatelessWidget {
 
                                 default:
                                   {
-                                    var user = await loginUserAccount(uid!);
+                                    CyberWatchUser user = await loginUserAccount(uid!);
                                     print(user.toString());
-                                    /*Navigator.push(
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (
-                                            context) => const ConnectSocialMediaView(),
+                                            context) => ConnectSocialMediaView(user: user),
                                       ),
-                                    );*/
+                                    );
                                     break;
                                   }
                               }
@@ -132,7 +132,17 @@ class LoginView extends StatelessWidget {
                           MaterialButton(
                             minWidth: double.infinity,
                             height: 60,
-                            onPressed: () {},
+                            onPressed: () async {
+                              CyberWatchUser user = await signInWithGoogle();
+                              await registerUserAccountGoogle(user);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (
+                                      context) => ConnectSocialMediaView(user: user),
+                                ),
+                              );
+                            },
                             color: Colors.white,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
