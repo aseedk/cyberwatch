@@ -1,3 +1,4 @@
+import 'package:cyberwatch/Backend/user.dart';
 import 'package:twitter_login/twitter_login.dart';
 import 'package:dart_twitter_api/twitter_api.dart';
 
@@ -35,6 +36,11 @@ Future<List<String?>> loginTwitter() async {
   }
 }
 
+Future<void> connectTwitterAPI(String authToken, String authTokenSecret)async {
+  authToken = authToken;
+  authTokenSecret = authTokenSecret;
+}
+
 final twitterApi = TwitterApi(
   client: TwitterClient(
     consumerKey: '4aNp2JGbx8eDXMvJzhjyWU8lf',
@@ -43,16 +49,28 @@ final twitterApi = TwitterApi(
     secret: authTokenSecret,
   ),
 );
-Future<void> getUserMentions() async{
+Future<String> getUserMentions(CyberWatchUser user) async{
   try {
-    final mentionTimeline = await twitterApi.timelineService.mentionsTimeline(
+    final twitterApiTTest = TwitterApi(
+      client: TwitterClient(
+        consumerKey: '4aNp2JGbx8eDXMvJzhjyWU8lf',
+        consumerSecret: 'QgJbqWNRMjGamwDLbvaim9z3HcZe4OVRjFDnHdwMMAXDhHci0l',
+        token: user.twitterAccessToken,
+        secret: user.twitterAccessSecret,
+      ),
+    );
+    final mentionTimeline = await twitterApiTTest.timelineService.mentionsTimeline(
       count: 10,
     );
+    String tweets = "";
     for (var tweet in mentionTimeline) {
-      print(tweet.fullText);
+      tweets = tweets + tweet.fullText.toString() +"\n";
     }
+    print(tweets);
+    return tweets;
   }catch (error){
     print('Error');
+    return "Error";
   }
 }
 Future<void> getUserTweets() async{

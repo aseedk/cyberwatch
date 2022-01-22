@@ -2,6 +2,7 @@ import 'package:cyberwatch/Backend/facebook.dart';
 import 'package:cyberwatch/Backend/mongo_implementation.dart';
 import 'package:cyberwatch/Backend/twitter.dart';
 import 'package:cyberwatch/Backend/user.dart';
+import 'package:cyberwatch/Frontend/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class ConnectSocialMediaView extends StatelessWidget {
@@ -25,9 +26,9 @@ class ConnectSocialMediaView extends StatelessWidget {
                     user.facebookAccessToken = accessToken;
                     print(user.toString());
                     await linkFacebookAccount(user);
-                    await getUserPostsFacebook(user.facebookAccessToken);
+                    /*await getUserPostsFacebook(user.facebookAccessToken);
                     await getUserVideosFacebook(user.facebookAccessToken);
-                    await getUserPhotosFacebook(user.facebookAccessToken);
+                    await getUserPhotosFacebook(user.facebookAccessToken);*/
 
                   },
                   shape: RoundedRectangleBorder(
@@ -56,9 +57,7 @@ class ConnectSocialMediaView extends StatelessWidget {
                     user.twitterAccessSecret = twitterUser[1];
                     await linkTwitterAccessTokenWithAccount(user);
                     await linkTwitterAccessSecretWithAccount(user);
-                    await getUserMentions();
-                    await getUserTweets();
-                    /*await loginTwitter();
+                    /*await getUserMentions();
                     await getUserTweets();*/
                   },
                   shape: RoundedRectangleBorder(
@@ -69,6 +68,34 @@ class ConnectSocialMediaView extends StatelessWidget {
                   ),
                   child: const Text(
                     "Connect with Twitter",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  height: 60,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DashboardView(user: user),
+                      ),
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: const Text(
+                    "Move To Dashboard",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,

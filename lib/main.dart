@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Frontend/splash.dart';
+import 'src/splash.dart';
 import 'Frontend/error.dart';
 import 'Frontend/loading_screen.dart';
+import 'src/register.dart';
 import 'dart:async';
 
 void main() {

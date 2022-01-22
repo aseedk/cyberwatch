@@ -1,3 +1,4 @@
+import 'package:cyberwatch/Backend/twitter.dart';
 import 'package:cyberwatch/Backend/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +99,7 @@ class LoginView extends StatelessWidget {
                                   {
                                     CyberWatchUser user = await loginUserAccount(uid!);
                                     print(user.toString());
+                                    connectTwitterAPI(user.twitterAccessToken,user.twitterAccessSecret);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -135,6 +137,9 @@ class LoginView extends StatelessWidget {
                             onPressed: () async {
                               CyberWatchUser user = await signInWithGoogle();
                               await registerUserAccountGoogle(user);
+                              user = await loginUserAccount(user.id);
+                              connectTwitterAPI(user.twitterAccessToken,user.twitterAccessSecret);
+                              print(user.toString());
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -31,15 +31,23 @@ Future<void> getUserDataFacebook() async{
   final userData = await FacebookAuth.instance.getUserData();
   print(userData);
 }
-Future<void> getUserPostsFacebook(String accessToken) async{
+Future<String> getUserPostsFacebook(String accessToken) async{
   final response = await http
       .get(Uri.parse("https://graph.facebook.com/v12.0/me?fields=posts&access_token="+ accessToken ));
-  print(jsonDecode(response.body));
+  var posts = jsonDecode(response.body)['posts']['data'];
+  String output = "";
+  for (var post in posts) {
+    if (post['message'] != null){
+      output = output + post['message'] + "\n";
+    }
+  }
+  print(output);
+  return output;
 }
 Future<void> getUserVideosFacebook(String accessToken) async{
   final response = await http
       .get(Uri.parse("https://graph.facebook.com/v12.0/me?fields=videos&access_token="+ accessToken ));
-  print(jsonDecode(response.body));
+  print(jsonDecode(response.body)['posts']);
 }
 Future<void> getUserPhotosFacebook(String accessToken) async{
   final response = await http
