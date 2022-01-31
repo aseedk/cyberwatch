@@ -7,14 +7,14 @@ import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:cyberwatch/src/login.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 class RegisterComponent extends StatefulWidget {
   const RegisterComponent({Key? key}) : super(key: key);
 
   @override
   _RegisterComponentState createState() => _RegisterComponentState();
 }
-
 class _RegisterComponentState extends State<RegisterComponent> {
   bool _obscureText = true;
   bool _nameError = false;
@@ -25,6 +25,7 @@ class _RegisterComponentState extends State<RegisterComponent> {
   final passwordController = TextEditingController();
   final countryController = TextEditingController();
   final countryCodeController = TextEditingController();
+  final dateOfBirthController = TextEditingController();
   final genderController = TextEditingController();
 
 
@@ -32,15 +33,15 @@ class _RegisterComponentState extends State<RegisterComponent> {
     RegExp regExp = RegExp(r'^[a-zA-Z]{2,40}( [a-zA-Z]{2,40})+$');
     return regExp.hasMatch(testValue);
   }
+  bool emailCheck(var testValue){
+    String regex = r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = RegExp(regex);
+    return regExp.hasMatch(testValue);
+  }
   bool passwordCheck(var testValue) {
     String regex = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
     RegExp regExp = RegExp(regex,
         caseSensitive: false);
-    return regExp.hasMatch(testValue);
-  }
-  bool emailCheck(var testValue){
-    String regex = r'^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExp = RegExp(regex);
     return regExp.hasMatch(testValue);
   }
   @override
@@ -86,12 +87,20 @@ class _RegisterComponentState extends State<RegisterComponent> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const InkWell(
-                      child: Icon(
-                        Icons.navigate_before,
-                        color: Colors.white,
-                        size: 30,
-                      )
+                  InkWell(
+                    child: const Icon(
+                      Icons.navigate_before,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginComponent(),
+                      ),
+                    );
+                    },
                   ),
                   const Text(
                     "Register",
@@ -120,7 +129,7 @@ class _RegisterComponentState extends State<RegisterComponent> {
               margin: const EdgeInsets.all(5),
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Container(
                       margin: const EdgeInsets.all(5),
                       child: const Text(
@@ -248,7 +257,7 @@ class _RegisterComponentState extends State<RegisterComponent> {
                         onTap: (){
                           showCountryPicker(
                             context: context,
-                            showPhoneCode: true, // optional. Shows phone code before the country name.
+                            showPhoneCode: true,
                             onSelect: (Country country) {
                               countryController.text = country.name;
                               countryCodeController.text = country.countryCode.toLowerCase();
@@ -272,6 +281,32 @@ class _RegisterComponentState extends State<RegisterComponent> {
                               height: 50,
                             ),
                           )
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
+                      child: TextField(
+                        controller: dateOfBirthController,
+                        onTap: (){
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              maxTime: DateTime.now(),
+                              onChanged: (date) {
+                              }, onConfirm: (date) {
+                                dateOfBirthController.text = date.day.toString()
+                                    + "-" + date.month.toString() + "-" + date.year.toString();
+                              }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        },
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Date Of Birth',
+                            icon: Padding(
+                                padding: EdgeInsets.only(top: 15.0),
+                                child: Icon(Icons.date_range)
+                            ),
                         ),
                       ),
                     ),
@@ -311,7 +346,8 @@ class _RegisterComponentState extends State<RegisterComponent> {
                               emailController.text.isNotEmpty &&
                               passwordController.text.isNotEmpty &&
                               countryController.text.isNotEmpty &&
-                              genderController.text.isNotEmpty
+                              genderController.text.isNotEmpty &&
+                              dateOfBirthController.text.isNotEmpty
                           ){
                             CollectionReference users = FirebaseFirestore.instance.collection('users');
                             try {
@@ -326,6 +362,10 @@ class _RegisterComponentState extends State<RegisterComponent> {
                                 'email': emailController.text,
                                 'gender': genderController.text,
                                 'country': countryController.text,
+                                'dateOfBirth': dateOfBirthController.text,
+                                'facebookAccessToken': '',
+                                'twitterAccessToken': '',
+                                'twitterAccessSecret': '',
                                 'verified': false
                               }).then((value) => Fluttertoast.showToast(
                                   msg: "Account Registered Successfully",
@@ -398,7 +438,12 @@ class _RegisterComponentState extends State<RegisterComponent> {
                       margin: const EdgeInsets.all(5),
                       child: GestureDetector(
                         onTap: () {
-                          //Navigator.pushNamed(context, "myRoute");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginComponent(),
+                            ),
+                          );
                         },
                         child: const Text("Already have an account? Sign in"),
                       )
